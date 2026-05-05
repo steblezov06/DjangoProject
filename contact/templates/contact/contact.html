@@ -1,0 +1,69 @@
+{% extends "wrapper.html" %}
+{% load static %}
+{% block title %}Обратная связь{% endblock %}
+
+{% block content %}
+<form class="row needs-validation" id="contactForm" method="post" novalidate>
+  {% csrf_token %}
+  <div class="col-md-4">
+    <label for="validationCustom01" class="form-label">Имя</label>
+    <input type="text" name="{{ form.first_name.name }}" class="form-control" id="validationCustom01" value="" required>
+    <div class="invalid-feedback">
+      Заполните поле!
+    </div>
+    <div class="valid-feedback">
+      Всё хорошо!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationCustom02" class="form-label">Фамилия</label>
+    <input type="text" name="{{ form.last_name.name }}" class="form-control" id="validationCustom02" value="" required>
+    <div class="invalid-feedback">
+      Заполните поле!
+    </div>
+    <div class="valid-feedback">
+      Всё хорошо!
+    </div>
+  </div>
+  <div class="col-md-4">
+    <label for="validationCustom03" class="form-label">Номер телефона</label>
+    <input type="text" name="{{ form.phone.name }}" class="form-control" id="validationCustom03" required>
+    <div class="invalid-feedback">
+      Заполните поле!
+    </div>
+    <div class="valid-feedback">
+      Всё хорошо!
+    </div>
+    <div class="form-text">
+       Ваш номер должен содержать 11 символов.
+    </div>
+  </div>
+  <div class="col-md-5">
+    <label for="validationCustom04" class="form-label">Почта</label>
+    <input type="text" name="{{ form.email.name }}" class="form-control" id="validationCustom04" required>
+    <div class="invalid-feedback">
+      Заполните поле!
+    </div>
+    <div class="valid-feedback">
+      Всё хорошо!
+    </div>
+  </div>
+    <div class="col-md-12">
+    <label for="validationCustom05" class="form-label">Текст обращения</label>
+    <textarea class="form-control" name="{{ form.text.name }}" id="validationCustom05" rows="6" required></textarea>
+    <div class="invalid-feedback">
+      Заполните поле!
+    </div>
+    <div class="valid-feedback">
+      Всё хорошо!
+    </div>
+    <div class="form-text">
+      Опишите ваше обращение подробно
+    </div>
+  </div>
+  <div class="col-12">
+    <button class="btn btn-secondary" type="submit">Отправить форму</button>
+  </div>
+</form>
+<script src="{% static 'js/contact.js' %}"></script>
+{% endblock %}

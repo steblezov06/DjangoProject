@@ -1,0 +1,98 @@
+{% extends "wrapper.html" %}
+{% load static %}
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Регистрация нового пользователя</h2>
+
+    {% if form.errors.items %}
+    <div class="alert alert-danger" role="alert">
+        Форма заполнена неверно! Проверьте правильность заполнения всех полей.
+    </div>
+    {% endif %}
+
+    <form class="row g-3 needs-validation" id="registrationForm" method="post" novalidate>
+        {% csrf_token %}
+        <div class="col-md-12">
+            <label for="firstName" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="firstName" name="{{ form.first_name.name }}" placeholder="Введите имя" required>
+            <div class="invalid-feedback">
+                Заполните поле!
+            </div>
+            <div class="valid-feedback">
+                Всё хорошо!
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <label for="lastName" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" id="lastName" name="{{ form.last_name.name }}" placeholder="Введите фамилию" required>
+            <div class="invalid-feedback">
+                Заполните поле!
+            </div>
+            <div class="valid-feedback">
+                Всё хорошо!
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <label for="email" class="form-label">Электронная почта</label>
+            <input type="email" class="form-control" id="email" name="{{ form.email.name }}" placeholder="example@mail.com" required>
+            <div class="invalid-feedback">
+                Введите корректный email!
+            </div>
+            <div class="valid-feedback">
+                Всё хорошо!
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <label for="phone" class="form-label">Номер телефона</label>
+            <input type="tel" class="form-control" id="phone" name="{{ form.phone.name }}" placeholder="+79993339933" required>
+            <div class="invalid-feedback">
+                Заполните поле!
+            </div>
+            <div class="valid-feedback">
+                Всё хорошо!
+            </div>
+            <div class="form-text">
+                Номер должен содержать 11 цифр
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <label for="password1" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="password1" name="{{ form.password1.name }}" placeholder="Придумайте пароль" required>
+            <div class="invalid-feedback">
+                Введите пароль!
+            </div>
+            <div class="valid-feedback">
+                Всё хорошо!
+            </div>
+            <div class="form-text">
+                Минимум 8 символов
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <label for="password2" class="form-label">Подтверждение пароля</label>
+            <input type="password" class="form-control" id="password2" name="{{ form.password2.name }}" placeholder="Повторите пароль" required>
+            <div class="invalid-feedback">
+                Подтвердите пароль!
+            </div>
+            <div class="valid-feedback">
+                Всё хорошо!
+            </div>
+        </div>
+
+        <div class="col-12 d-flex gap-2">
+          <button class="btn btn-secondary" type="submit">Регистрация</button>
+          <a href="{% url 'enter' %}" class="btn btn-secondary">Вход</a>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'js/registration.js' %}"></script>
+{% endblock %}

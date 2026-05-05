@@ -1,0 +1,26 @@
+{% extends 'wrapper.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Добро пожаловать в наш магазин пенного!</h1>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="bg-light p-4 rounded">
+                <p class="fs-5">Наш магазин предлагает широкий выбор разливного и бутилированного пива.
+                У нас вы найдете как классические сорта, так и крафтовые новинки.
+                </p>
+                <p class="fs-5">Работаем ежедневно с 10:00 до 23:00. Ждем вас!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <a href="{% url 'catalog:catalog' %}" class="btn btn-warning btn-lg px-5">
+            Перейти в каталог
+        </a>
+    </div>
+</div>
+{% endblock %}

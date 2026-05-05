@@ -1,0 +1,41 @@
+{% extends "wrapper.html" %}
+{% load static %}
+{% block title %}Подтверждение номера телефона{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Подтверждение номера телефона</h2>
+    <p class="text-muted mb-4">
+        На ваш номер телефона отправлен 6-значный код подтверждения.
+        Введите его ниже для завершения регистрации.
+    </p>
+
+    <form class="row g-3 needs-validation" id="verificationForm" method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="col-md-12">
+            <label for="verification_code" class="form-label">Код подтверждения</label>
+            <input type="text"
+                   class="form-control text-center"
+                   id="verification_code"
+                   name="verification_code"
+                   required>
+            <div class="invalid-feedback">
+                Введите 6-значный код
+            </div>
+            <div class="valid-feedback">
+                Всё хорошо!
+            </div>
+            <div class="form-text">
+                Код отправлен в Telegram
+            </div>
+        </div>
+
+        <div class="col-12 d-flex gap-2">
+            <button class="btn btn-secondary" type="submit">Подтвердить</button>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'js/verification_phone.js' %}"></script>
+{% endblock %}

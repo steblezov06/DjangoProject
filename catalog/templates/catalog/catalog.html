@@ -1,0 +1,73 @@
+
+{% extends "wrapper.html" %}
+{% load static %}
+
+{% block title %}Каталог пива{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="text-center mb-4">Наше разливное и бутелированное пиво </h1>
+    </div>
+
+    {% for product in products %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ product.image.url }}" class="card-img-top"
+                     style="height: 250px; width: 100%; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <h6 class="card-subtitle mb-3 text-secondary fw-bold">{{ product.price }} ₽</h6>
+                <p class="card-text">{{ product.description }}</p>
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-warning">Купить</button>
+                    {% if user.is_authenticated %}
+                    <button type="button" class="btn btn-danger" id="button-like-{{ product.id }}">Нравиться <i class="bi bi-heart"></i> {{ product.likes }}</button>
+                    {% else %}
+                    <button type="button" class="btn btn-danger" disabled>Нравиться <i class="bi bi-heart"></i> {{ product.likes }} </button>
+                    {% endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    {% for product in products %}
+        var buttonLike{{ product.id }} = document.getElementById('button-like-{{ product.id }}')
+        buttonLike{{ product.id }}.addEventListener('click', function() {
+            fetch("{% url 'catalog:like' product.id %}", { method: 'POST',
+                                                            headers: {
+                                                                'X-CSRFToken': "{{ csrf_token }}"  // Для Django
+                                                            }})
+            .then(response => response.json())
+            .then(response => {
+                buttonLike{{ product.id }}.innerHTML = `Нравиться <i class='bi bi-heart'></i> ${response.total}`
+            })
+        })
+    {% endfor %}
+    function updateLikes() {
+        fetch("{% url 'catalog:get_likes' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Перебор ключей объекта
+            Object.keys(data).forEach(key => {
+
+                // Если нужно обновить каждую кнопку
+                const button = document.getElementById(`button-like-${key}`);
+                if (button) {
+                    button.innerHTML = `Нравится <i class="bi bi-heart"></i> ${data[key]}`;
+                }
+            });
+        })
+        .catch(error => console.error('Ошибка:', error));
+    }
+
+    var a = setInterval(updateLikes, 2000)
+</script>
+{% endblock %}
