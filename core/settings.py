@@ -33,6 +33,14 @@ ALLOWED_HOSTS = [
     'www.shopbuybeer.ru',
 ]
 
+
+# Замените на ваш домен
+CSRF_TRUSTED_ORIGINS = [
+    "https://shopbuybeer.ru",
+    "https://www.shopbuybeer.ru", # если используете www
+]
+
+
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
